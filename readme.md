@@ -1,6 +1,3 @@
-# Black Company - FrontEnd Developer recruitment task
-
-Hi! This is our recruitment task for FrontEnd Developer.
 
 Your task is very simple:
 
@@ -66,3 +63,9 @@ you should count how many times it was drawn. Ranking should be sorted from most
 
 
 ##Good luck!
+
+
+
+##Task finished
+
+Please download the repository, use npm install, then run `npm|yarn run start-server`
