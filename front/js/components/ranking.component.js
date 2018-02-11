@@ -31,6 +31,9 @@ Ranking.prototype.render = function() {
       const listElement = document.createElement('li');
       listElement.classList.add('list-group-item');
       listElement.innerHTML = number.id;
+      if (number.occurrences) {
+         listElement.innerHTML = `${number.id} was drawn <strong>${number.occurrences}</strong> times`
+      }
 
       container.appendChild(listElement);
   });

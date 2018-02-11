@@ -1,9 +1,7 @@
 const ranking = new Ranking('#numbers-ranking');
-ranking.init();
-
 const randomNumbers = new Ranking('#numbers-random');
 
-randomNumbers.clear = function() {
+Ranking.prototype.clear = function() {
     const container = this.getDOMElement();
 
     if (container) {
@@ -21,22 +19,48 @@ randomNumbers.init = function() {
                     id: number
                 }
             });
-            randomNumbers.clear();
-            randomNumbers.render();
+            this.clear();
+            this.render();
         })
         .catch(function(error) {
             console.error(error);
         });
 };
 
-function compareNumbers(rankingNumObj, randomNumObj){
-    if(rankingNumObj.length > 0 && randomNumObj.length > 0){
-        /*TO DO*/
+function compareNumbers(){
+
+    if(ranking.numbers.length > 0 && randomNumbers.numbers.length > 0){
+            randomNumbers.numbers.map( randomNumber => {
+                ranking.numbers.map(rankingNumber =>{
+                    if (!rankingNumber.hasOwnProperty('occurrences')) {
+                        rankingNumber.occurrences = 0;
+                    }
+                    if (rankingNumber.id === randomNumber.id) {
+                        rankingNumber.occurrences++;
+                    }
+                })
+
+            });
+
+            function sortFromMostToLeastPopular(a, b) {
+                if (b.occurrences < a.occurrences)
+                    return -1;
+                if (b.occurrences > a.occurrences)
+                    return 1;
+                return 0;
+            }
+
+            ranking.numbers.sort(sortFromMostToLeastPopular);
+            ranking.clear();
+            ranking.render();
+            //console.log(ranking.numbers);
     }
 }
 
+ranking.init();
+
 setInterval(() => {
     randomNumbers.init();
-    console.log(ranking.numbers, randomNumbers.numbers);
+    compareNumbers();
 
 }, 5000);
